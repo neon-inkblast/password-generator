@@ -50,6 +50,58 @@ function getPasswordCriteria() {
   return criteria;
 }
 
+
+
+//-------------------------------- Array implementation --------------------------------//
+function generateAvailableCharacterArray(criteria) {
+  // set up strings holding the possible characters
+  var lowercase = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+  var uppercase = lowercase.map(function (char) {
+    return char.toUpperCase()
+  });
+  var special = ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")"];
+  var number = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+  // set up an empty string append with selected characters
+  var available = [];
+
+  // check each criteria and use Array.concat() to add the corresponding character set
+  if (criteria.upper) {
+    available = available.concat(uppercase);
+  }
+  if (criteria.lower) {
+    available = available.concat(lowercase);
+  }
+  if (criteria.number) {
+    available = available.concat(number);
+  }
+  if (criteria.special) {
+    available = available.concat(special);
+  }
+  // return combined character set as a string
+  console.log(available);
+  return available;
+}
+
+function generatePasswordFromArray(length, availableChars) {
+  // start with an empty array to hold password
+  var password = [];
+  // loop once per character required for length desired
+  for (var i = 0; i < length; i++) {
+    // get a random number between 0 and the length of the available character array
+    var index = Math.floor(Math.random() * availableChars.length);
+    // use array indexing to get the character from the available array and 
+    // push it onto the password array
+    password.push(availableChars[index]);
+  }
+  // return the completed password to the caller, using Array.join() to convert it back to a string
+  console.log(password);
+  return password.join("");
+}
+
+
+
+//------------------------------- String implementation --------------------------------//
+
 function generateAvailableCharacterSet(criteria) {
   // set up strings holding the possible characters
   var lowercase = "abcdefghijklmnopqrstuvwxyz";
@@ -92,13 +144,22 @@ function generatePasswordFromString(length, availableChars) {
   // return the completed password to the caller
   return password;
 }
+//--------------------------------------------------------------------------------------//
 
 
 function generatePassword() {
   var passwordLength = getPasswordLength();
   var passwordCriteria = getPasswordCriteria();
-  var availableCharacters = generateAvailableCharacterSet(passwordCriteria);
-  var password = generatePasswordFromString(passwordLength, availableCharacters);
+  var availableCharacters;
+  var password;
+  var arrayOrString = confirm("Should I generate the password using String or Array implementation?\n\n - [Cancel]: string\n - [Ok]: array");
+  if (arrayOrString) {
+    availableCharacters = generateAvailableCharacterSet(passwordCriteria);
+    password = generatePasswordFromString(passwordLength, availableCharacters);
+  } else {
+    availableCharacters = generateAvailableCharacterSet(passwordCriteria);
+    password = generatePasswordFromString(passwordLength, availableCharacters);
+  }
   return password;
 }
 
