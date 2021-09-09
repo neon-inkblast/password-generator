@@ -50,15 +50,39 @@ function getPasswordCriteria() {
   return criteria;
 }
 
-function generateAvailableCharacterSet() {
+function generateAvailableCharacterSet(criteria) {
+  // set up strings holding the possible characters
+  var lowercase = "abcdefghijklmnopqrstuvwxyz";
+  var uppercase = lowercase.toUpperCase();
+  var special = "!@#$%^&*()";
+  var number = "0123456789";
+  // set up an empty string append with selected characters
+  var available = "";
 
+  // check each criteria and append the corresponding character set
+  if (criteria.upper) {
+    available += uppercase;
+  }
+  if (criteria.lower) {
+    available += lowercase;
+  }
+  if (criteria.number) {
+    available += number;
+  }
+  if (criteria.special) {
+    available += special;
+  }
+  // return combined character set as a string
+  console.log(available);
+  return available;
 }
 
 
 function generatePassword() {
   var passwordLength = getPasswordLength();
   var passwordCriteria = getPasswordCriteria();
-  var availableCharacters = generateAvailableCharacterSet();
+  var availableCharacters = generateAvailableCharacterSet(passwordCriteria);
+
   var password = "";
   return password;
 }
