@@ -77,19 +77,34 @@ function generateAvailableCharacterSet(criteria) {
   return available;
 }
 
+function generatePasswordFromString(length, availableChars) {
+  // start with an empty string to hold password
+  var password = "";
+  // loop once per character required for length desired
+  for (var i = 0; i < length; i++) {
+    // get a random number between 0 and the length of the available character string
+    var index = Math.floor(Math.random() * availableChars.length);
+    // use charAt() to get the character from the random index of the available character 
+    // string and append it to the password string
+    password += availableChars.charAt(index);
+  }
+  console.log(password);
+  // return the completed password to the caller
+  return password;
+}
+
 
 function generatePassword() {
   var passwordLength = getPasswordLength();
   var passwordCriteria = getPasswordCriteria();
   var availableCharacters = generateAvailableCharacterSet(passwordCriteria);
-
-  var password = "";
+  var password = generatePasswordFromString(passwordLength, availableCharacters);
   return password;
 }
 
 
 
-// --------------------------------------Starter code 
+//------------------------------- Starter code --------------------------------//
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
 
