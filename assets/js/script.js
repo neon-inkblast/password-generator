@@ -1,3 +1,27 @@
+function getPasswordLength() {
+
+}
+
+function getPasswordCriteria() {
+
+}
+
+function generateAvailableCharacterSet() {
+
+}
+
+
+function generatePassword() {
+  var passwordLength = getPasswordLength();
+  var passwordCriteria = getPasswordCriteria();
+  var availableCharacters = generateAvailableCharacterSet();
+  var password = "";
+  return password;
+}
+
+
+
+// --------------------------------------Starter code 
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
 
