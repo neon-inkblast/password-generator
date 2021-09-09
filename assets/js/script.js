@@ -18,7 +18,36 @@ function getPasswordLength() {
 }
 
 function getPasswordCriteria() {
+  // set up criteria as an object so that I can pass it back easily to the calling function
+  var criteria = {
+    upper: false,
+    lower: false,
+    number: false,
+    special: false,
+  };
+  // wrapper function to display the confirm with a prebuilt message  
+  function displayCriteriaMessage(criteriaType) {
+    return confirm("Would you like to use [" + criteriaType + "] characters?");
+  }
+  // helper function to ask for all criteria
+  function getUserCriteria() {
+    criteria.upper = displayCriteriaMessage("uppercase");
+    criteria.lower = displayCriteriaMessage("lowercase");
+    criteria.number = displayCriteriaMessage("number");
+    criteria.special = displayCriteriaMessage("special");
+  }
 
+  // get user input
+  getUserCriteria();
+
+  // while user input is invalid, ask user again
+  while (criteria.upper === false && criteria.lower === false && criteria.number === false && criteria.special === false) {
+    alert("You must select at least ONE of the four password criteria. \n-uppercase \n-lowercase \n-numbers \n-special characters");
+    getUserCriteria();
+  }
+  // return the user's password criteria  
+  console.log(criteria);
+  return criteria;
 }
 
 function generateAvailableCharacterSet() {
