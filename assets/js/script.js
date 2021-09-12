@@ -7,7 +7,7 @@ function getPasswordLength() {
   // get the initial password length
   var passwordLength = prompt(lengthMessage);
   // if the password length input was invalid, repeat the process until the user enters a valid input
-  while (passwordLength < minLength || passwordLength > maxLength || !passwordLength) {
+  while (isNaN(passwordLength) || passwordLength < minLength || passwordLength > maxLength || !passwordLength) {
     // since the user has already entered bad data, prepend the hint message as well
     passwordLength = prompt(hintMessage + "\n\n" + lengthMessage);
   }
@@ -54,14 +54,18 @@ function getPasswordCriteria() {
 
 //-------------------------------- Array implementation --------------------------------//
 function generateAvailableCharacterArray(criteria) {
-  // set up strings holding the possible characters
+  // set up arrays holding the possible characters
+  // we could also doing this by splitting a string, which is what I would usually do in pracice
+  // eg.
+  // var lowercase = "abcdefgh".split("");
+  // however I have written as an array literal here for clarity.
   var lowercase = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
   var uppercase = lowercase.map(function (char) {
     return char.toUpperCase()
   });
   var special = ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")"];
   var number = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
-  // set up an empty string append with selected characters
+  // set up an empty array, concatenate with selected characters
   var available = [];
 
   // check each criteria and use Array.concat() to add the corresponding character set
@@ -77,7 +81,7 @@ function generateAvailableCharacterArray(criteria) {
   if (criteria.special) {
     available = available.concat(special);
   }
-  // return combined character set as a string
+  // return combined character array
   console.log(available);
   return available;
 }
