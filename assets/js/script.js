@@ -51,8 +51,6 @@ function getPasswordCriteria() {
 }
 
 
-
-//-------------------------------- Array implementation --------------------------------//
 function generateAvailableCharacterArray(criteria) {
   // set up arrays holding the possible characters
   // we could also doing this by splitting a string, which is what I would usually do in pracice
@@ -102,68 +100,11 @@ function generatePasswordFromArray(length, availableChars) {
   return password.join("");
 }
 
-
-
-//------------------------------- String implementation --------------------------------//
-
-function generateAvailableCharacterSet(criteria) {
-  // set up strings holding the possible characters
-  var lowercase = "abcdefghijklmnopqrstuvwxyz";
-  var uppercase = lowercase.toUpperCase();
-  var special = "!@#$%^&*()";
-  var number = "0123456789";
-  // set up an empty string append with selected characters
-  var available = "";
-
-  // check each criteria and append the corresponding character set
-  if (criteria.upper) {
-    available += uppercase;
-  }
-  if (criteria.lower) {
-    available += lowercase;
-  }
-  if (criteria.number) {
-    available += number;
-  }
-  if (criteria.special) {
-    available += special;
-  }
-  // return combined character set as a string
-  console.log(available);
-  return available;
-}
-
-function generatePasswordFromString(length, availableChars) {
-  // start with an empty string to hold password
-  var password = "";
-  // loop once per character required for length desired
-  for (var i = 0; i < length; i++) {
-    // get a random number between 0 and the length of the available character string
-    var index = Math.floor(Math.random() * availableChars.length);
-    // use charAt() to get the character from the random index of the available character 
-    // string and append it to the password string
-    password += availableChars.charAt(index);
-  }
-  console.log(password);
-  // return the completed password to the caller
-  return password;
-}
-//--------------------------------------------------------------------------------------//
-
-
 function generatePassword() {
   var passwordLength = getPasswordLength();
   var passwordCriteria = getPasswordCriteria();
-  var availableCharacters;
-  var password;
-  var arrayOrString = confirm("Should I generate the password using String or Array implementation?\n\n - [Cancel]: string\n - [Ok]: array");
-  if (arrayOrString) {
-    availableCharacters = generateAvailableCharacterSet(passwordCriteria);
-    password = generatePasswordFromString(passwordLength, availableCharacters);
-  } else {
-    availableCharacters = generateAvailableCharacterSet(passwordCriteria);
-    password = generatePasswordFromString(passwordLength, availableCharacters);
-  }
+  var availableCharacters = generateAvailableCharacterArray(passwordCriteria);
+  var password = generatePasswordFromArray(passwordLength, availableCharacters);
   return password;
 }
 
