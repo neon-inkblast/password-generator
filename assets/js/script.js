@@ -154,16 +154,12 @@ function generatePasswordFromString(length, availableChars) {
 function generatePassword() {
   var passwordLength = getPasswordLength();
   var passwordCriteria = getPasswordCriteria();
-  var availableCharacters;
-  var password;
-  var arrayOrString = confirm("Should I generate the password using String or Array implementation?\n\n - [Cancel]: string\n - [Ok]: array");
-  if (arrayOrString) {
-    availableCharacters = generateAvailableCharacterSet(passwordCriteria);
-    password = generatePasswordFromString(passwordLength, availableCharacters);
-  } else {
-    availableCharacters = generateAvailableCharacterSet(passwordCriteria);
-    password = generatePasswordFromString(passwordLength, availableCharacters);
-  }
+  var useArray = confirm("Should I generate the password using String or Array implementation?\n\n - [Cancel]: string\n - [Ok]: array");
+  // the ternery operator `?` is used to check the useArray variable and then call the approprite implementation
+  // syntax: (condition) ? {return if true} : {return if false};
+  // should only be used where a value is being returned, not everywhere an if statement could be used.
+  var availableCharacters = useArray ? generateAvailableCharacterArray(passwordCriteria) : generateAvailableCharacterSet(passwordCriteria);
+  var password = useArray ? generatePasswordFromArray(passwordLength, availableCharacters) : generatePasswordFromString(passwordLength, availableCharacters);
   return password;
 }
 
